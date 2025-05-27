@@ -1,0 +1,7 @@
+name = "ICAforECGrecordings"
+uuid = "517f07d5-c0db-4eb4-a568-8213b39c7b3a"
+authors = ["Tim Mueller-Bagehl <tim.mueller-bagehl@campus.tu-berlin.de>"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.11"

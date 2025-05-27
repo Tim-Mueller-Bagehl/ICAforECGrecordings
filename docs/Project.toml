@@ -1,0 +1,3 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+ICAforECGrecordings = "517f07d5-c0db-4eb4-a568-8213b39c7b3a"
