@@ -1,6 +1,4 @@
 using DelimitedFiles
-using Plots
-
 """
     ReadDatasetFromDatFile(Path :: String,tabdelimited :: Bool = true)
 
