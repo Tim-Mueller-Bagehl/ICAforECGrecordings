@@ -1,4 +1,5 @@
 module ICAforECGrecordings
+using LinearAlgebra
 
 # Write your package code here.
 export plot_dataset
