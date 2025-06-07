@@ -7,7 +7,11 @@
 
 # Blind Source Separation of ECG Recordings using ICA
 
-This project analyzes a dataset of cutaneous ECG potential recordings from a pregnant woman to **separate the heartbeats of the mother and the fetus** using **Independant Component Analysis (ICA)** algorithms such as **JADE**, **Shibbs**, and **Picard**.
+This project analyzes a dataset of cutaneous ECG potential recordings from a pregnant woman, sourced from the SISTA DaISy database.
+
+The main goal is to **separate the heartbeats of the mother and the fetus**. 
+
+To achieve this, we implement several **Independant Component Analysis (ICA)** algorithms such as **JADE**, **Shibbs**, and **Picard**, and apply them to the recordings. The results will be visualized once the signal separation is completed.
 
 ![estimated source signals](docs/estimated_source_signals.png)
 
@@ -18,7 +22,6 @@ This project analyzes a dataset of cutaneous ECG potential recordings from a pre
 We use the **SISTA DaISy database**:
 
 - **Dataset**: [foetal_ecg.dat.gz](https://ftp.esat.kuleuven.be/pub/SISTA/data/biomedical/foetal_ecg.dat.gz)
-- Source: 
 
 ---
 
