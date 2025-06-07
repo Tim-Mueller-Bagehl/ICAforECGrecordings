@@ -1,5 +1,6 @@
 module ICAforECGrecordings
 using LinearAlgebra
+using Statistics
 
 # Write your package code here.
 export plot_dataset
@@ -26,11 +27,11 @@ This is a common preprocessing step before applying Independent Component Analys
 
 """
 function whiten(data::Matrix{Float64})
-    centered = data .- mean(data, dims=1)
-    cov_matrix = cov(centered, dims=1)
-    eigvals, eigvecs = eigen(cov_matrix)
-    whitening_matrix = inv(sqrt.(Diagonal(eigvals))) * eigvecs'
-    whitened = centered * whitening_matrix'
-    return whitened
+    X_mean = mean(X, dims=2)
+    X_centered = X .- X_mean
+    cov_matrix = cov(X_centered; corrected=false)
+    E, D = eigen(cov_matrix)
+    W = Diagonal(1 ./ sqrt.(D)) * E'
+    return W * X_centered
 end
 end
