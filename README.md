@@ -41,6 +41,7 @@ We use the **SISTA DaISy database**:
 
 ## File Structure
 
+'''plaintext
 ecg-ica-separation
  ┣ 📂data
  ┃ ┗ foetal_ecg.dat
