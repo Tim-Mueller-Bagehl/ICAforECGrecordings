@@ -41,4 +41,24 @@ We use the **SISTA DaISy database**:
 
 ## File Structure
 
+ecg-ica-separation
+ ┣ 📂data
+ ┃ ┗ foetal_ecg.dat
+ ┣ 📂docs
+ ┃ ┣ 📂src
+ ┃ ┃ ┣ index.md
+ ┃ ┣ Project.toml
+ ┃ ┣ make.jl
+ ┣ 📂src
+ ┃ ┣ ICAforECGrecordings.jl
+ ┃ ┣ Parser.jl
+ ┣ 📂test
+ ┃ ┗ Manifest.toml
+ ┃ ┗ Project.toml
+ ┃ ┗ runtests.jl
+ ┗ .gitignore
+ ┗ LICENSE
+ ┗ Project.toml
+ ┗ README.md
+
 ---
