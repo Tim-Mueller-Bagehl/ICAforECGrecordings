@@ -1,5 +1,7 @@
 module ICAforECGrecordings
 
-# Write your package code here.
+include("Parser.jl")
+
+export  ReadDatasetFromDatFile
 
 end

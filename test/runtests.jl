@@ -2,5 +2,5 @@ using ICAforECGrecordings
 using Test
 
 @testset "ICAforECGrecordings.jl" begin
-    # Write your tests here.
+    include("test_parser.jl")
 end

@@ -2,7 +2,7 @@ using DelimitedFiles
 using Plots
 
 """
-    ReadDatasetFromDatFile(Path :: String,tabdelimited :: Bool = true)
+    ReadDatasetFromDatFile(Path :: String)
 
 Reads .dat File from a File Location. 
 returns 9x2497 Matrix {Float64} with oure dataset
