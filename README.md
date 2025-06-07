@@ -9,6 +9,8 @@
 
 This project analyzes a dataset of cutaneous ECG potential recordings from a pregnant woman to **separate the heartbeats of the mother and the fetus** using **Independant Component Analysis (ICA)** algorithms such as **JADE**, **Shibbs**, and **Picard**.
 
+![estimated source signals](docs/estimated_source_signals.png)
+
 ---
 
 ## Dataset
