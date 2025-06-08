@@ -23,7 +23,7 @@ This is a common preprocessing step before applying Independent Component Analys
 - `data`: A matrix of size (n_samples, n_signals) where each column is a signal.
 
 # Returns
-- A whitened data matrix of the same size, where the signals are zero-mean, uncorrelated, and have unit variance.
+- A matrix of the same size as `data`, where the first column is time and the remaining columns are the whitened signals.
 
 """
 function whiten(data::Matrix{Float64})
