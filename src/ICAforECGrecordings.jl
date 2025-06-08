@@ -27,11 +27,20 @@ This is a common preprocessing step before applying Independent Component Analys
 
 """
 function whiten(data::Matrix{Float64})
-    X_mean = mean(X, dims=2)
+    time = data[:, 1]
+    X = data[:, 2:end]
+
+    X_mean = mean(X, dims=1)
     X_centered = X .- X_mean
-    cov_matrix = cov(X_centered; corrected=false)
-    E, D = eigen(cov_matrix)
-    W = Diagonal(1 ./ sqrt.(D)) * E'
-    return W * X_centered
+
+    U, S, Vt = svd(X_centered; full=true)
+
+    W_white = Vt' * Diagonal(1.0 ./ S)
+
+    X_white = X_centered * W_white
+
+    data_white = hcat(time, X_white)
+
+    return data_white
 end
 end
