@@ -2,6 +2,9 @@ using ICAforECGrecordings
 using Test
 
 @testset "ICAforECGrecordings.jl" begin
+
+    include("test_parser.jl")
+
     # Write your tests here.
     @testset "plot_dataset" begin
         data = [0.0 1.0 2.0; 1.0 1.5 2.5; 2.0 2.0 3.0; 3.0 2.5 3.5] 
@@ -25,3 +28,4 @@ using Test
         x_white = data_white[:, 2:end]
     end
 end
+
