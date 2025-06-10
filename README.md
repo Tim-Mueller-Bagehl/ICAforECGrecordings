@@ -67,4 +67,19 @@ ecg-ica-separation
  ┗ Project.toml
  ┗ README.md
 ```
+
+---
+
+## Isntallation/Usage Guide
+
+```
+julia
+pkg> add https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings
+
+using ICAforECGrecordings
+using DelimitedFiles
+data = ReadDatasetFromDatFile("data/foetal_ecg.dat")
+plot_dataset(data)
+```
+
 ---
