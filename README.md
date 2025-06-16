@@ -58,13 +58,33 @@ ecg-ica-separation
  ┣ 📂src
  ┃ ┣ ICAforECGrecordings.jl
  ┃ ┣ Parser.jl
+ ┃ ┣ Visualization.jl
+ ┃ ┣ Preprocessing.jl
  ┣ 📂test
  ┃ ┗ Manifest.toml
  ┃ ┗ Project.toml
  ┃ ┗ runtests.jl
+ ┃ ┗ test_parser.jl
+ ┃ ┗ test_visualization.jl
+ ┃ ┗ test_preprocessing.jl
  ┗ .gitignore
  ┗ LICENSE
  ┗ Project.toml
  ┗ README.md
 ```
+
+---
+
+## Isntallation/Usage Guide
+
+```
+julia
+pkg> add https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings
+
+using ICAforECGrecordings
+using DelimitedFiles
+data = ReadDatasetFromDatFile("data/foetal_ecg.dat")
+plot_dataset(data)
+```
+
 ---
