@@ -12,3 +12,4 @@ Runs the Picard algorithm.
 
 """
 function picard(X::Matrix{Float64}, m::Int, maxiter::Int, tol::Float32, lambda_min::Float32, ls_tries, verbose::Bool)
+end
