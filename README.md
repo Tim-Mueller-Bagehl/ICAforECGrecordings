@@ -58,10 +58,15 @@ ecg-ica-separation
  ┣ 📂src
  ┃ ┣ ICAforECGrecordings.jl
  ┃ ┣ Parser.jl
+ ┃ ┣ Visualization.jl
+ ┃ ┣ Preprocessing.jl
  ┣ 📂test
  ┃ ┗ Manifest.toml
  ┃ ┗ Project.toml
  ┃ ┗ runtests.jl
+ ┃ ┗ test_parser.jl
+ ┃ ┗ test_visualization.jl
+ ┃ ┗ test_preprocessing.jl
  ┗ .gitignore
  ┗ LICENSE
  ┗ Project.toml
