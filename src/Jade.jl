@@ -1,7 +1,7 @@
 using LinearAlgebra
 
 """
-jade(data::Matrix{Float64}, m::Int = size(data,2)-1) -> Matrix{Float64}
+    jade(data::Matrix{Float64}, m::Int = size(data,2)-1) -> Matrix{Float64}
 
 Performs blind source separation on already-whitened data using the JADE algorithm.
 
