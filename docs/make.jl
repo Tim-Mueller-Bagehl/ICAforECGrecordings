@@ -7,6 +7,7 @@ makedocs(
     format      = Documenter.HTML(),
     pages       = [
         "Home" => "index.md",
+        "Getting Stqrted" => "getting_started.md",
         "Installation" => "installation.md",
         "Usage" => "usage.md",
         "API" => "api.md",
