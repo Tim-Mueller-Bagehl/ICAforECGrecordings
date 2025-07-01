@@ -50,6 +50,7 @@ function picard_standard(X, m, maxiter, precon, tol, lambda_min, ls_tries, verbo
             print("iteration $n_top graddient norm = $g_norm")
         end
     end
+    return Y,W
 end
 
 
@@ -96,7 +97,7 @@ function l_bfgs_direction(Y,thY,G,s_list,y_list,r_list,precon,lambda_min)
         s = s_list[end - ii +1]
         y = y_list[end - ii +1]
         r = r_list[end - ii +1]
-        alpha = r*sum(sum(y .* q))
+        alpha = r*sum(sum(s .* q))
         push!(a_list,alpha)
         q = q- alpha * y
     end
