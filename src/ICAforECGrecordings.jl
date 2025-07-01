@@ -11,4 +11,7 @@ include("Visualization.jl")
 export ReadDatasetFromDatFile
 include("Parser.jl")
 
+export jade
+include("Jade.jl")
+
 end

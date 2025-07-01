@@ -2,7 +2,7 @@ using LinearAlgebra
 using Statistics
 
 """
-whiten(data::Matrix{Float64}) -> Matrix{Float64}
+    whiten(data::Matrix{Float64}) -> Matrix{Float64}
 
 Performs whitening on the given data matrix.
 
@@ -25,7 +25,7 @@ function whiten(data::Matrix{Float64})
 
     U, S, Vt = svd(X_centered; full=true)
 
-    W_white = Vt' * Diagonal(1.0 ./ S)
+    W_white = Vt' * Diagonal(1 ./ S)
 
     X_white = X_centered * W_white
 
