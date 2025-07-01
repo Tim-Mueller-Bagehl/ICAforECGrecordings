@@ -19,5 +19,5 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl",
-    devbranch="main",
+    devbranch="gh-pages",
 )
