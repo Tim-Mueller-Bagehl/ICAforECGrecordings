@@ -1,4 +1,9 @@
 module ICAforECGrecordings
+using LinearAlgebra: tranpose, sqrt, I, norm
+using DelimitedFiles: readdlm
+using Statistics: norm, mean
+using Plots: plot, plot!, xlabel!
+
 
 # Write your package code here.
 export whiten

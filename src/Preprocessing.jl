@@ -1,6 +1,3 @@
-using LinearAlgebra
-using Statistics
-
 """
     whiten(data::Matrix{Float64}) -> Matrix{Float64}
 

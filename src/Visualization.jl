@@ -1,5 +1,3 @@
-using Plots
-
 """
     plot_dataset(data::Matrix{Float64})
 Plot a dataset with time on the x-axis and multiple signals on the y-axis.
@@ -19,7 +17,5 @@ function plot_dataset(data::Matrix{Float64})
             xlabel!(plt[i], "Time")
         end
     end
-
-    savefig(plt, "dataset_plot.png")
     return plt
 end

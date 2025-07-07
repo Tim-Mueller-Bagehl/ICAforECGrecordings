@@ -1,4 +1,3 @@
-using LinearAlgebra
 """
     shibbs(X::Matrix{Float64},m::Int)
 Blind separation of real signals with SHIBBS.
