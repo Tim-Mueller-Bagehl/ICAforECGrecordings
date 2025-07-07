@@ -1,6 +1,8 @@
 module ICAforECGrecordings
+using LinearAlgebra
+using DelimitedFiles
+using Plots
 
-# Write your package code here.
 export whiten
 include("Preprocessing.jl")
 
