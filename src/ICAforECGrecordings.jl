@@ -12,7 +12,7 @@ include("Preprocessing.jl")
 export plot_dataset
 include("Visualization.jl")
 
-export ReadDatasetFromDatFile
+export read_dataset_from_dat
 include("Parser.jl")
 
 
@@ -21,5 +21,6 @@ include("Shibbs.jl")
 
 export jade
 include("Jade.jl")
+
 
 end
