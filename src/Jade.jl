@@ -23,7 +23,7 @@ function jade(data::Matrix{Float64}, m::Int = 2)
     Xw   = data[:,2:end]             # T×n (time samples x channels)
     
     # Tranpose so we work with nxT (channels x samples)
-    X = tranpose(Xw)
+    X = transpose(Xw)
     n, T = size(X)
     @assert 1 ≤ m ≤ n "m must be between 1 and n"
 
