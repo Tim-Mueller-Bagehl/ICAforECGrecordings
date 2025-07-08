@@ -1,6 +1,6 @@
 using Pkg
 Pkg.activate(@__DIR__)
-Pkg.resolve() #Optional if a known-good Manifest.toml is included
+Pkg.resolve()
 Pkg.instantiate()
 import ICAforECGrecordings
 using ICAforECGrecordings: whiten, plot_dataset, read_dataset_from_dat, shibbs, jade
