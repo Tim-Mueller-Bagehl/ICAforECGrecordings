@@ -8,8 +8,7 @@ makedocs(;
     authors="Tim Mueller-Bagehl <tim.mueller-bagehl@campus.tu-berlin.de>",
     sitename="ICAforECGrecordings.jl",
     format=Documenter.HTML(;
-        canonical="https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings.jl",
-        repo = "https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings.jl.git",
+        canonical="https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings.jl.git",
         edit_link="main",
         assets=String[],
     ),

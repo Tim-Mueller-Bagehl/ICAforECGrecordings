@@ -80,7 +80,7 @@ function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :
 end
 
 """
-    loss(Y::AbstractMatrix,W::AbstractMatrix) 
+    loss(Y::AbstractMatrix,W::AbstractMatrix,distribution::String) 
 
 compute the loss function for Y and W
 """
