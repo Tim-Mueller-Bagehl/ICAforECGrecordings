@@ -3,6 +3,7 @@ using Documenter
 
 DocMeta.setdocmeta!(ICAforECGrecordings, :DocTestSetup, :(using ICAforECGrecordings); recursive=true)
 
+
 makedocs(;
     modules=[ICAforECGrecordings],
     authors="Tim Mueller-Bagehl <tim.mueller-bagehl@campus.tu-berlin.de>",
