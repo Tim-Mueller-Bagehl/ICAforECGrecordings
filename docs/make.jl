@@ -9,6 +9,7 @@ makedocs(;
     sitename="ICAforECGrecordings.jl",
     format=Documenter.HTML(;
         canonical="https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings.jl",
+        repo = "https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings.jl.git",
         edit_link="main",
         assets=String[],
     ),
@@ -18,6 +19,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl",
+    repo="github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl.git",
     devbranch="main",
 )
