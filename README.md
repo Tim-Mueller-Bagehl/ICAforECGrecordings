@@ -42,36 +42,6 @@ We use the **SISTA DaISy database**:
 - Domino, K. et al., "Efficient Computation of Higher-Order Cumulant Tensors", SIAM J. Sci. Comput. 40, A1590 (2018)
 - Picard ICA Algorithm: [GitHub - pierreablin/picard](https://github.com/pierreablin/picard)
 
----
-
-## File Structure
-
-```plaintext
-ecg-ica-separation
- ┣ 📂data
- ┃ ┗ foetal_ecg.dat
- ┣ 📂docs
- ┃ ┣ 📂src
- ┃ ┃ ┣ index.md
- ┃ ┣ Project.toml
- ┃ ┣ make.jl
- ┣ 📂src
- ┃ ┣ ICAforECGrecordings.jl
- ┃ ┣ Parser.jl
- ┃ ┣ Visualization.jl
- ┃ ┣ Preprocessing.jl
- ┣ 📂test
- ┃ ┗ Manifest.toml
- ┃ ┗ Project.toml
- ┃ ┗ runtests.jl
- ┃ ┗ test_parser.jl
- ┃ ┗ test_visualization.jl
- ┃ ┗ test_preprocessing.jl
- ┗ .gitignore
- ┗ LICENSE
- ┗ Project.toml
- ┗ README.md
-```
 
 ---
 
