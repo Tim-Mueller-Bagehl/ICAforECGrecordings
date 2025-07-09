@@ -1,6 +1,3 @@
-using ICAforECGrecordings
-using Test
-
 @testset "Visualization" begin
     # Write your tests here.
     @testset "plot_dataset" begin

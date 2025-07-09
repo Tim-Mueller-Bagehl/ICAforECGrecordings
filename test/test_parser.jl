@@ -1,6 +1,3 @@
-using ICAforECGrecordings
-using Test
-
 @testset "parser" begin
     datpath = joinpath(@__DIR__, "..", "data", "foetal_ecg.dat")
     result = read_dataset_from_dat(datpath)

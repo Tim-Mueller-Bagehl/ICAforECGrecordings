@@ -1,11 +1,4 @@
-using ICAforECGrecordings
-using Test
-using Random
-using Statistics
-
 @testset "jade" begin
-    Random.seed!(42)
-    
     # create two non-gaussian signal
     T = 500
     time = collect(1:T)

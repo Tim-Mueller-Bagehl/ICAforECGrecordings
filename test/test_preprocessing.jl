@@ -1,6 +1,3 @@
-using ICAforECGrecordings
-using Test
-
 @testset "Preprocessing" begin
 
     @testset "whiten() Test" begin
