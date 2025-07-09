@@ -19,6 +19,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl.git",
+    repo="github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.git",
     devbranch="main",
 )
