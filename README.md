@@ -13,7 +13,7 @@ The main goal is to **separate the heartbeats of the mother and the fetus**.
 
 To achieve this, we implement several **Independant Component Analysis (ICA)** algorithms such as **JADE**, **Shibbs**, and **Picard**, and apply them to the recordings. The results will be visualized once the signal separation is completed.
 
-![estimated source signals](docs/estimated_source_signals.png)
+![estimated source signals](docs/src/assets/estimated_source_signals.png)
 
 ---
 

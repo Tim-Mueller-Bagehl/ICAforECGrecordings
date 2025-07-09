@@ -1,8 +1,5 @@
-using LinearAlgebra
-using Statistics
-
 """
-    whiten(data::Matrix{Float64}) -> Matrix{Float64}
+    whiten(data::AbstractMatrix{Float64}) -> AbstractMatrix{Float64}
 
 Performs whitening on the given data matrix.
 
@@ -16,7 +13,7 @@ This is a common preprocessing step before applying Independent Component Analys
 - A matrix of the same size as `data`, where the first column is time and the remaining columns are the whitened signals.
 
 """
-function whiten(data::Matrix{Float64})
+function whiten(data::AbstractMatrix{Float64})
     time = data[:, 1]
     X = data[:, 2:end]
 
