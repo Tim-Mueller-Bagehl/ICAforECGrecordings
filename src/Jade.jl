@@ -134,7 +134,27 @@ function joint_diagonalization(CM_in::AbstractMatrix, T::Int, max_sweeps::Int=10
     return V, CM
 end
 
-function separate_sources(V::Matrix{Float64}, W::Matrix{Float64})
+"""
+    separate_sources(V::AbstractMatrix, W::AbstractMatrix) -> B::Matrix{Float64}
+
+Compute a scaled and permuted separation matrix `B` given a demixing matrix `V` and
+a mixing matrix `W`, ordering output components by estimated energy and ensuring
+a consistent sign convention.
+
+# Arguments
+- `V::AbstractMatrix{<:Real}`  
+  Demixing (unmixing) matrix of size `mxm` (e.g., returned by a joint diagonalizer).
+- `W::AbstractMatrix{<:Real}`  
+  Mixing matrix of size `mxm` (inverse of the true source mixing).
+
+# Returns
+- `B::Matrix{Float64}`  
+  Separation matrix of size `mxm` such that `B * X` yields estimated source signals.
+  Rows of `B` are ordered by descending source energy and each row is scaled to
+  have a positive first coefficient (up to a small offset).
+
+"""
+function separate_sources(V::AbstractMatrix, W::AbstractMatrix)
     B = V' * W
 
     iW = inv(W)
