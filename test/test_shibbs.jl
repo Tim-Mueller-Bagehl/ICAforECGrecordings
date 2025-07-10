@@ -26,19 +26,18 @@ end
 
 @testset "shibbs" begin
 
-    N = 3
-    T = 20
+    N = 50
+    T = 10
 
-    S = [sin.(2π .* (1:T) .* f ./ T) for f in [3.0, 7.0, 11.0]]
+    S = [sin.(2π .* (1:T) .* f ./ T) for f in [rand(0.1:0.1:1.0) for _ in 1:N]]
     S = reduce(vcat, S)
     S = reshape(S, N, T)
 
     A = randn(N, N)
     X = A * S
 
-     X_dummy = hcat(zeros(N), X)
-
-    B = shibbs(X_dummy)
+    X_dummy = hcat(zeros(N), X)
+    B = shibbs(whiten(X_dummy))
     S_est = B * X
 
 

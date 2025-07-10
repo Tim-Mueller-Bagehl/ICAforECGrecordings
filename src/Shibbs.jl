@@ -2,7 +2,7 @@
     cumulant_matrices(X::AbstractMatrix)
 Blind separation of real signals with SHIBBS.
 # Arguments
-- `X::Matrix{Float64}`: Matrix that contains the signals that have to be unmixed, first Column is ignored. 
+- `X::Matrix{Float64}`: Matrix that contains the signals that have to be unmixed. 
 Returns 
 CM=cumulant_matrices(X) a NxN*nbcm cumulant matrix.
 
@@ -112,7 +112,7 @@ function shibbs(X::Matrix{Float64})
         outersweep += 1
         if(outersweep % 10 == 0)
             percent = outersweep / 10
-            @info "outer loop done: " percent
+            @info "outer loo2p done: " percent
         end
 
         CM = cumulant_matrices(X) # calculate cumulant matrices
