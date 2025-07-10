@@ -1,5 +1,6 @@
 module ICAforECGrecordings
-using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen
+
+using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv
 using DelimitedFiles: readdlm
 using Statistics: norm, mean
 using Plots: plot, plot!, xlabel!
@@ -28,5 +29,4 @@ end
 
 export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data
 
-
-end 
+end
