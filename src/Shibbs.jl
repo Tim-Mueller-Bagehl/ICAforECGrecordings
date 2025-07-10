@@ -89,9 +89,10 @@ end
     shibbs(X::Matrix{Float64},m::Int)
 Blind separation of real signals with SHIBBS.
 # Arguments
-- `X::Matrix{Float64}`: whitend Matrix that contains the signals that have to be unmixed. 
+- `X::Matrix{Float64}`:  Matrix that contains the signals that have to be unmixed. 
+- `m=nothing`: amount of signals that should be extracted from X. default same amount of singals as source
 Returns 
-B=shibbsR(X) a nxn separating matrix such that S=B*X is an nxT
+B=shibbsR(X) a mxn separating matrix such that S=B*X is an mxT
 matrix of estimated source signals.
 
 """
