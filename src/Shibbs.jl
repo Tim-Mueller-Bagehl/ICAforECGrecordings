@@ -127,10 +127,6 @@ function shibbs(X::AbstractMatrix,m=nothing)
     while OneMoreStep && outersweep < 1000
 
         outersweep += 1
-        if(outersweep % 10 == 0)
-            percent = outersweep / 10
-            @info "outer loop done: " percent
-        end
 
         CM = cumulant_matrices(X,m) # calculate cumulant matrices
 

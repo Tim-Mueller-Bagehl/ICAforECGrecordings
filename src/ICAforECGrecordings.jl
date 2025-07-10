@@ -1,5 +1,5 @@
 module ICAforECGrecordings
-using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv
+using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen
 using DelimitedFiles: readdlm
 using Statistics: norm, mean
 using Plots: plot, plot!, xlabel!
