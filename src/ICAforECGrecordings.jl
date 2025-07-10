@@ -1,4 +1,6 @@
 module ICAforECGrecordings
+using LinearAlgebra: I, eigen, Symmetric, dot, inv, Diagonal
+using Statistics: mean
 
 # Write your package code here.
 export whiten
