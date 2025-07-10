@@ -11,7 +11,7 @@ include("Visualization.jl")
 export ReadDatasetFromDatFile
 include("Parser.jl")
 
-export jade
+export estimate_cumulant_matrices, joint_diagonalization, separate_sources, jade
 include("Jade.jl")
 
 end
