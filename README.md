@@ -1,7 +1,7 @@
 # ICAforECGrecordings
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings.jl/dev/)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings/dev/)
 [![Build Status](https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/Tim-Mueller-Bagehl/ICAforECGrecordings.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/Tim-Mueller-Bagehl/ICAforECGrecordings.jl)
 
@@ -13,7 +13,7 @@ The main goal is to **separate the heartbeats of the mother and the fetus**.
 
 To achieve this, we implement several **Independant Component Analysis (ICA)** algorithms such as **JADE**, **Shibbs**, and **Picard**, and apply them to the recordings. The results will be visualized once the signal separation is completed.
 
-![estimated source signals](docs/estimated_source_signals.png)
+![estimated source signals](docs/src/assets/estimated_source_signals.png)
 
 ---
 

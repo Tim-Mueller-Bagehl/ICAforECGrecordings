@@ -1,19 +1,32 @@
 module ICAforECGrecordings
-using LinearAlgebra: I, eigen, Symmetric, dot, inv, Diagonal
-using Statistics: mean
+
+using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv
+using DelimitedFiles: readdlm
+using Statistics: norm, mean
+using Plots: plot, plot!, xlabel!
+
 
 # Write your package code here.
-export whiten
 include("Preprocessing.jl")
-
-export plot_dataset
 include("Visualization.jl")
-
-
-export ReadDatasetFromDatFile
 include("Parser.jl")
 
-export jade
+# Algos
+include("Shibbs.jl")
 include("Jade.jl")
+
+
+@doc """
+    load_example_data()
+Load example data from a .dat file for testing purposes.
+Returns a matrix containing the data.
+"""
+function load_example_data()
+    datpath = joinpath(@__DIR__, "..", "data", "foetal_ecg.dat")
+    data = read_dataset_from_dat(datpath)
+    return data
+end
+
+export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data
 
 end

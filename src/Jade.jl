@@ -204,4 +204,5 @@ function jade(data::AbstractMatrix)
     S = B * X
     iS = S'
     return hcat(time, iS)
+
 end

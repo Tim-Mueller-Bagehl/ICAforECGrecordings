@@ -1,12 +1,10 @@
-using Plots
-
 """
-    plot_dataset(data::Matrix{Float64})
+    plot_dataset(data::AbstractMatrix{Float64})
 Plot a dataset with time on the x-axis and multiple signals on the y-axis.
 # Arguments
-- `data::Matrix{Float64}`: Matrix where the first column represents time and the remaining columns represent different signals.
+- `data::AbstractMatrix{Float64}`: Matrix where the first column represents time and the remaining columns represent different signals.
 """
-function plot_dataset(data::Matrix{Float64})
+function plot_dataset(data::AbstractMatrix{Float64})
     time = data[:, 1]
     signals = data[:, 2:end]
     n_signals = size(signals, 2)
@@ -19,7 +17,5 @@ function plot_dataset(data::Matrix{Float64})
             xlabel!(plt[i], "Time")
         end
     end
-
-    savefig(plt, "dataset_plot.png")
     return plt
 end
