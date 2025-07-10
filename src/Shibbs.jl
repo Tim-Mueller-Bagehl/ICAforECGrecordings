@@ -86,17 +86,17 @@ function joint_diagonalization(CM::AbstractMatrix, threshhold::Real, m::Number)
     return V
 end
 """
-    shibbs(X::Matrix{Float64},m::Int)
+    shibbs(X::AbstractMatrix,m::Int)
 Blind separation of real signals with SHIBBS.
 # Arguments
-- `X::Matrix{Float64}`:  Matrix that contains the signals that have to be unmixed. 
+- `X::AbstractMatrix`:  Matrix that contains the signals that have to be unmixed. 
 - `m=nothing`: amount of signals that should be extracted from X. default same amount of singals as source
 Returns 
 B=shibbsR(X) a mxn separating matrix such that S=B*X is an mxT
 matrix of estimated source signals.
 
 """
-function shibbs(X::Matrix{Float64},m=nothing)
+function shibbs(X::AbstractMatrix,m=nothing)
 
     signals = X[:, 2:end]
     X = Matrix(signals')
