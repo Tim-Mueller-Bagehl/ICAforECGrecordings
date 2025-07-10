@@ -1,8 +1,9 @@
 module ICAforECGrecordings
-using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv
+using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv ,diag, diagm, qr, rank
 using DelimitedFiles: readdlm
 using Statistics: norm, mean
 using Plots: plot, plot!, xlabel!
+
 
 
 # Write your package code here.
@@ -13,6 +14,7 @@ include("Parser.jl")
 # Algos
 include("Shibbs.jl")
 include("Jade.jl")
+include("Picard.jl")
 
 
 @doc """
@@ -26,7 +28,7 @@ function load_example_data()
     return data
 end
 
-export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data
+export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, picard
 
 
 end 

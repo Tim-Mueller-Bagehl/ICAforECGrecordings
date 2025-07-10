@@ -1,6 +1,4 @@
-using LinearAlgebra
-using Infinity
-using Statistics
+
 """
     picardo(X::AbstractMatrix, m::Int, maxiter::Int, tol::Z, lambda_min <: A, ls_tries:: Int, verbose::Bool) where{Z,A <:Real}
 Runs the Picard algorithm.
@@ -14,7 +12,7 @@ Runs the Picard algorithm.
 - `verbose::Bool` : If true, prints the informations about the algorithm.
 
 """
-function picardo(X::AbstractMatrix, m::Int, maxiter::Int, tol::Z, lambda_min <: A, ls_tries:: Int, verbose::Bool) where{Z,A <:Real}
+function picardo(X::AbstractMatrix, m::Int, maxiter::Int, tol::Z, lambda_min :: A, ls_tries:: Int, verbose::Bool) where{Z,A <:Real}
 
     N, T = size(X) 
 

@@ -1,5 +1,3 @@
-using LinearAlgebra
-
 
 """
     picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon, tol :: Float32, lambda_min :: Float32, ls_tries :: Int, verbose :: Bool)
@@ -18,7 +16,7 @@ using LinearAlgebra
 - `distribution::String` : logistic or logcosh. The distribution to use for the score function
 - `renormalization::String` : original or pythonlike. The method for Hessian renormalization
 """
-function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :: Int, tol :: Float32, lambda_min :: Float32, ls_tries :: Int, verbose :: Bool, distribution ::String = "logistic",renormalization ::String = "original")
+function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :: Int, tol :: A, lambda_min :: B, ls_tries :: Int, verbose :: Bool, distribution ::String = "logistic",renormalization ::String = "original") where {A,B <:Real}
     @doc"""Init"""
     N,T = size(X)
     W = I(N)
@@ -31,15 +29,15 @@ function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :
     for n_top = 1:maxiter
         @doc"""computes the score function"""
         if distribution == "logistic"
-            thY = tanh(Y/2.0)
+            thY = tanh.(Y/2.0)
         else
-            thY = tanh(Y)
+            thY = tanh.(Y)
         end
         @doc"""compute the relative gradient"""
         G = (thY * transpose(Y)) / T - I(N)
         @doc"""stopping criterion """
 
-        g_norm = max(max(abs(G)))
+        g_norm = max(max(abs.(G)))
         if g_norm < tol
             break
         end
@@ -48,7 +46,7 @@ function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :
             append!(s_list,direction)
             y = G - G_old
             append!(y_list,y)
-            append!(r_list,(1/sum(sum(direction .* y))))
+            append!(r_list,(1/sum(sum(direction .* y,dims=1))))
             if length(s_list) > m
                 s_list = s_list[2:end]
                 y_list = y_list[2:end]
@@ -58,7 +56,7 @@ function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :
         G_old = G
 
         @doc"""Find the L-BFGS direction """
-        direction = l_bfgs_direction(Y,thY,G,s_list,y_list,r_list,precon,lambda_min)
+        direction = l_bfgs_direction(Y,thY,G,s_list,y_list,r_list,precon,lambda_min,distribution,renormalization)
         @doc"""Do a line search in that direction """
         converged,new_Y,new_loss,direction = line_search(Y,W,direction,current_loss,ls_tries,verbose,distribution)
 
@@ -91,13 +89,13 @@ function loss(Y::AbstractMatrix,W::AbstractMatrix,distribution::String)
     if distribution == "logistic"
         for n = 1:N
             y=Y[n,:]
-            loss = loss + mean(abs(y)+2 * log1p(exp(-abs(y))))
+            loss = loss + mean(abs.(y)+2 * log1p(exp(-abs.(y))))
         end
         return loss
     else
         for k = 1:N
             y = Y[k,:]
-            loss = loss + mean(abs(y) + 2 *log1p(exp(-abs(y))))
+            loss = loss + mean(abs.(y) + 2 *log1p(exp(-abs.(y))))
         end
         return loss
     end
@@ -136,12 +134,12 @@ end
 
 function l_bfgs_direction(Y :: AbstractMatrix,thY :: Number,G :: AbstractMatrix,s_list :: AbstractVector,y_list :: AbstractVector,r_list :: AbstractVector,precon :: Int,lambda_min :: Float32,distribution :: String,renormalization :: String)
     q = G
-    a_list=Any[]
+    a_list=zeros(0)
     for ii in eachindex(s_list)
         s = s_list[end - ii +1]
         y = y_list[end - ii +1]
         r = r_list[end - ii +1]
-        alpha = r * sum(sum(s .* q))
+        alpha = r * sum(sum(s .* q,dims = 1))
         push!(a_list,alpha)
         q = q - alpha * y
     end
@@ -151,7 +149,7 @@ function l_bfgs_direction(Y :: AbstractMatrix,thY :: Number,G :: AbstractMatrix,
         y = y_list[ii]
         r = r_list[ii]
         alpha = a_list[end - ii + 1]
-        beta = r * sum(sum(y.*z))
+        beta = r * sum(sum(y.*z,dims = 1))
         z = z + (alpha - beta)  * s
     end    
     return -z
