@@ -1,10 +1,11 @@
 """
-    cumulant_matrices(X::AbstractMatrix)
+    cumulant_matrices(X::AbstractMatrix, m::Number)
 Blind separation of real signals with SHIBBS.
 # Arguments
-- `X::Matrix{Float64}`: Matrix that contains the signals that have to be unmixed. 
+- `X::AbstractMatrix`: Matrix that contains the signals that have to be unmixed. 
+- `m::Number`: The number of signals that should be extracted from X.
 Returns 
-CM=cumulant_matrices(X) a NxN*nbcm cumulant matrix.
+CM=cumulant_matrices(X, m) a NxN*nbcm cumulant matrix.
 
 """
 function cumulant_matrices(X::AbstractMatrix, m::Number)
@@ -28,13 +29,14 @@ function cumulant_matrices(X::AbstractMatrix, m::Number)
 end
 
 """
-    joint_diagonalization(CM::AbstractMatrix, threshhold::Real)
+    joint_diagonalization(CM::AbstractMatrix, threshhold::Real, m::Number)
 Blind separation of real signals with SHIBBS.
 # Arguments
 - `CM::AbstractMatrix`: Matrix that contains the signals that have to be unmixed. 
--`threshhold::Real`: A threshhold for the for the rotation 
+-`threshhold::Real`: A threshhold for the for the rotation
+- `m::Number`: The number of signals that should be extracted from CM. 
 Returns 
-V = joint_diagonalization(CM, threshhold) a NxN diagonalized matrix.
+V = joint_diagonalization(CM, threshhold, m) a NxN diagonalized matrix.
 
 """
 function joint_diagonalization(CM::AbstractMatrix, threshhold::Real, m::Number)
