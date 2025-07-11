@@ -10,6 +10,7 @@ using Plots: plot, plot!, xlabel!
 include("Preprocessing.jl")
 include("Visualization.jl")
 include("Parser.jl")
+include("Utils.jl")
 
 # Algos
 include("Shibbs.jl")
@@ -24,10 +25,9 @@ struct PicardoSeperator <: AbstractSeperator end
 
 solve(seperator::JadeSeperator, data::AbstractMatrix) = 
 begin 
-    data = whiten(data)
-    signal1 = jade(data)
-    signal2 = hcat(data[:,1], data[:,2:end]-signal1[:,2:end])
-    return signal1, signal2
+    data_w, W_white = whiten(data)
+    signals = jade(data_w, W_white)
+    return signals
 end 
 
 
@@ -46,7 +46,7 @@ Performs Independent Component Analysis (ICA) using the Shibbs algorithm on the 
 solve(seperator::ShibbsSeperator, data::AbstractMatrix) = 
 begin 
     t = data[:,1]
-    X = whiten(data) 
+    X, _ = whiten(data) 
     B = shibbs(X,2) 
     signals = X[:, 2:end] 
     X = Matrix(signals') 
@@ -79,6 +79,7 @@ function load_example_data()
     return data
 end
 
-export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data
+export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
+       JadeSeperator, ShibbsSeperator, AbstractSeperator
 
 end
