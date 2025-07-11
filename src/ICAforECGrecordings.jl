@@ -11,6 +11,7 @@ include("Preprocessing.jl")
 include("Visualization.jl")
 include("Parser.jl")
 include("Utils.jl")
+include("Utils.jl")
 
 # Algos
 include("Shibbs.jl")
@@ -89,6 +90,8 @@ function load_example_data()
     return data
 end
 
+export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
+       JadeSeperator, ShibbsSeperator, AbstractSeperator
 export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
        JadeSeperator, ShibbsSeperator, AbstractSeperator
 
