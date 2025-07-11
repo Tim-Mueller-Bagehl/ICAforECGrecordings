@@ -1,9 +1,9 @@
 # ICAforECGrecordings
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings/dev/)
-[![Build Status](https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/Tim-Mueller-Bagehl/ICAforECGrecordings.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/Tim-Mueller-Bagehl/ICAforECGrecordings.jl)
+| Documentation | Development | Build Status | Coverage |
+|---------------|-------------|---------------|----------|
+| [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings.jl/stable/) | [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://Tim-Mueller-Bagehl.github.io/ICAforECGrecordings/dev/) | [![Build Status](https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings.jl/actions/workflows/CI.yml?query=branch%3Amain) | [![Coverage](https://codecov.io/gh/Tim-Mueller-Bagehl/ICAforECGrecordings.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/Tim-Mueller-Bagehl/ICAforECGrecordings.jl) |
+
 
 # Blind Source Separation of ECG Recordings using ICA
 
@@ -11,7 +11,7 @@ This project analyzes a dataset of cutaneous ECG potential recordings from a pre
 
 The main goal is to **separate the heartbeats of the mother and the fetus**. 
 
-To achieve this, we implement several **Independant Component Analysis (ICA)** algorithms such as **JADE**, **Shibbs**, and **Picard**, and apply them to the recordings. The results will be visualized once the signal separation is completed.
+To achieve this, we implement several **Independant Component Analysis (ICA)** algorithms such as **JADE**, **Shibbs**, and **Picard**, and apply them to the recording. The results will be visualized once the signal separation is completed.
 
 ![estimated source signals](docs/src/assets/estimated_source_signals.png)
 
@@ -22,6 +22,7 @@ To achieve this, we implement several **Independant Component Analysis (ICA)** a
 We use the **SISTA DaISy database**:
 
 - **Dataset**: [foetal_ecg.dat.gz](https://ftp.esat.kuleuven.be/pub/SISTA/data/biomedical/foetal_ecg.dat.gz)
+- **Description**: [Link](https://ftp.esat.kuleuven.be/pub/SISTA/data/biomedical/foetal_ecg.txt)
 
 ---
 
@@ -42,11 +43,6 @@ We use the **SISTA DaISy database**:
 - Domino, K. et al., "Efficient Computation of Higher-Order Cumulant Tensors", SIAM J. Sci. Comput. 40, A1590 (2018)
 - Picard ICA Algorithm: [GitHub - pierreablin/picard](https://github.com/pierreablin/picard)
 
----
-
-## File Structure
-
-```plaintext
 ecg-ica-separation
  ┣ 📂data
  ┃ ┗ foetal_ecg.dat
@@ -73,8 +69,6 @@ ecg-ica-separation
  ┗ README.md
 ```
 
----
-
 ## Isntallation/Usage Guide
 
 ```
@@ -86,5 +80,3 @@ using DelimitedFiles
 data = ReadDatasetFromDatFile("data/foetal_ecg.dat")
 plot_dataset(data)
 ```
-
----
