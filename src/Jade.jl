@@ -20,14 +20,14 @@ function jade(data_w::AbstractMatrix, W::AbstractMatrix)
     time = data_w[:, 1]
     Xs = data_w[:, 2:end]
     X = Xs'
-    n,T = size(X)
+    _,T = size(X)
 
-    CM = cumulant_matrices(Matrix(X), n)
-    V, _ = joint_diagonalization(CM, T, 2)
+    CM = fourth_order_cumulant_matrices(Matrix(X))
+    V = joint_diagonalization(CM, T, 2)
     
-    B = V' * W
+    B = separate_sources(V, W)
+    #B = V' * W
     S = B * X
     iS = S'
-    return hcat(time, iS)
-
+    return hcat(time, iS[:,1:2])
 end

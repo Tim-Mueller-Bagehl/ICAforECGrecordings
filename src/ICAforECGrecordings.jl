@@ -38,7 +38,7 @@ solve(seperator::JadeSeperator, data::AbstractMatrix) =
 begin 
     data_w, W_white = whiten(data)
     signals = jade(data_w, W_white)
-    return signals = signals[:, 1:3] 
+    return signals
 end 
 
 
