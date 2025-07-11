@@ -32,14 +32,10 @@ function picard(X :: AbstractMatrix, params = Dict() ::Dict)
     end
     N,T = size(X)
 
-    if N < T
+    if N > T
         error("There are more signals than samples")
     end
 
-
-    if mod(length(params),2) == 1
-        error("There should be an even number of optional parameters")
-    end
 
     lowercase_parms = Dict(lowercase(key) => v for (key,v) in params)
     
@@ -124,9 +120,8 @@ function picard(X :: AbstractMatrix, params = Dict() ::Dict)
         Y , W_algo = picardo(X_whitened,m,maxiter,tol,lambda_min,ls_tries,verbose)
     elseif mode == "standard"
         Y , W_algo = picard_standard(X_whitened,m,maxiter,2,tol,lambda_min,ls_tries,verbose,distribution,renormalization)
-    else
-        error("Wrong ICA mode")
     end
+
     W = W_algo * w_init * W_whitened
     return Y , W
 end
@@ -141,9 +136,9 @@ function whitening_picard(Y,mode,n_components)
 
     R = (Y*transpose(Y)) / size(Y,2)
     U,D,_ = svd(R)
-    D = diagm(D)
+    #D = diagm(D)
     if mode == "pca"
-        W = diag(1 / sqrt.(D))*transpose(U)
+        W = diagm(1 ./ sqrt.(D))*transpose(U)
         W = [start:n_components,:]
         for i = size(W,1)
             _,j = findmax(abs(W[i,:]))
@@ -153,7 +148,7 @@ function whitening_picard(Y,mode,n_components)
         end
         Z = W * Y
     elseif mode == "sph"
-        W = U* diag(1 ./ sqrt.(D)) * transpose(U)
+        W = U* diagm(1 ./ sqrt.(D)) * transpose(U)
         Z = W * Y
     else
         error("$mode is not a valid mode. The options are pca and sph")

@@ -21,8 +21,8 @@ function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :
     N,T = size(X)
     W = I(N)
     Y = X
-    s_list = zeros(0)
-    y_list = zeros(0)
+    s_list = Vector{Matrix}()
+    y_list = Vector{Matrix}()
     r_list = zeros(0)
     current_loss = loss(Y,W,distribution)
 
@@ -37,7 +37,7 @@ function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :
         G = (thY * transpose(Y)) / T - I(N)
         @doc"""stopping criterion """
 
-        g_norm = max(max(abs.(G)))
+        g_norm = maximum(maximum(abs.(G),dims = 2))
         if g_norm < tol
             break
         end
@@ -46,7 +46,7 @@ function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :
             append!(s_list,direction)
             y = G - G_old
             append!(y_list,y)
-            append!(r_list,(1/sum(sum(direction .* y,dims=1))))
+            append!(r_list,(1/sum(direction .* y)))
             if length(s_list) > m
                 s_list = s_list[2:end]
                 y_list = y_list[2:end]
@@ -62,8 +62,8 @@ function picard_standard(X :: AbstractMatrix, m :: Int, maxiter :: Int, precon :
 
         if !converged
             direction = -G
-            s_list = zeros(0)
-            y_list = zeros(0)
+            s_list = Vector{Matrix}()
+            y_list = Vector{Matrix}()
             r_list = zeros(0)
             tmp,new_Y,new_W,new_loss,direction = line_search(Y,W,direction,current_loss,10,false,distribution)
         end
@@ -85,17 +85,17 @@ compute the loss function for Y and W
 function loss(Y::AbstractMatrix,W::AbstractMatrix,distribution::String) 
     
     N=size(Y,1)
-    loss=-log(det(W))
+    loss=-log.(det(W))
     if distribution == "logistic"
         for n = 1:N
             y=Y[n,:]
-            loss = loss + mean(abs.(y)+2 * log1p(exp(-abs.(y))))
+            loss = loss + mean(abs.(y)+2 * log1p.(exp.(-abs.(y))))
         end
         return loss
     else
         for k = 1:N
             y = Y[k,:]
-            loss = loss + mean(abs.(y) + 2 *log1p(exp(-abs.(y))))
+            loss = loss + mean(abs.(y) + 2 *log1p.(exp.(-abs.(y))))
         end
         return loss
     end
@@ -187,7 +187,7 @@ function solve_hessian(G :: AbstractMatrix,Y :: AbstractMatrix,thY :: Number,pre
         sigma2 = mean(Y_squared,2)
         psidY_mean = mean(psidY,2)
         a = psidY_mean * transpose(sigma2)
-        diagonal_term = mean(mean(Y_squared .* psidY)) +1
+        diagonal_term = mean(mean(Y_squared .* psidY),dims = 2) +1
         a[1:(N+1):N*N] .= diagonal_term
     else
         error("precon should be 1 or 2")
@@ -195,7 +195,7 @@ function solve_hessian(G :: AbstractMatrix,Y :: AbstractMatrix,thY :: Number,pre
 
     if renormalization == "original"
 
-        eigenvalues = 0.5 * (a + transpose(a) - sqrt((a-transpose(a)).^2 +4))
+        eigenvalues = 0.5 * (a + transpose(a) - sqrt.((a-transpose(a)).^2 +4))
 
         problematic_locs = eigenvalues .< lambda_min
         problematic_locs[1:(N+1):N*N] .= false

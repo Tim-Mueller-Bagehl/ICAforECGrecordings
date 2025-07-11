@@ -3,6 +3,7 @@ using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv ,diag, diagm,
 using DelimitedFiles: readdlm
 using Statistics: norm, mean
 using Plots: plot, plot!, xlabel!
+using Random: randn
 
 
 
