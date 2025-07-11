@@ -23,7 +23,8 @@ plot_dataset(jade_signals)
 
 ```julia
 using Pkg
-Pkg.activate(@__DIR__)
+Pkg.activate(temp=true)
+Pkg.add(url="https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings")
 Pkg.resolve()
 Pkg.instantiate()
 import ICAforECGrecordings
