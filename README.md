@@ -21,7 +21,7 @@ To achieve this, we implement several **Independant Component Analysis (ICA)** a
 
 We use the **SISTA DaISy database**:
 
-- **Dataset**: [foetal_ecg.dat.gz](https://ftp.esat.kuleuven.be/pub/SISTA/data/biomedical/foetal_ecg.dat.gz)
+- **Dataset**: [Link](https://ftp.esat.kuleuven.be/pub/SISTA/data/biomedical/foetal_ecg.dat.gz)
 - **Description**: [Link](https://ftp.esat.kuleuven.be/pub/SISTA/data/biomedical/foetal_ecg.txt)
 
 ---
@@ -42,32 +42,6 @@ We use the **SISTA DaISy database**:
 - De Moor B.L.R., DaISy: Database for the Identification of Systems, KU Leuven
 - Domino, K. et al., "Efficient Computation of Higher-Order Cumulant Tensors", SIAM J. Sci. Comput. 40, A1590 (2018)
 - Picard ICA Algorithm: [GitHub - pierreablin/picard](https://github.com/pierreablin/picard)
-
-ecg-ica-separation
- ┣ 📂data
- ┃ ┗ foetal_ecg.dat
- ┣ 📂docs
- ┃ ┣ 📂src
- ┃ ┃ ┣ index.md
- ┃ ┣ Project.toml
- ┃ ┣ make.jl
- ┣ 📂src
- ┃ ┣ ICAforECGrecordings.jl
- ┃ ┣ Parser.jl
- ┃ ┣ Visualization.jl
- ┃ ┣ Preprocessing.jl
- ┣ 📂test
- ┃ ┗ Manifest.toml
- ┃ ┗ Project.toml
- ┃ ┗ runtests.jl
- ┃ ┗ test_parser.jl
- ┃ ┗ test_visualization.jl
- ┃ ┗ test_preprocessing.jl
- ┗ .gitignore
- ┗ LICENSE
- ┗ Project.toml
- ┗ README.md
-```
 
 ## Isntallation/Usage Guide
 
