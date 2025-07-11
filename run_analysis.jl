@@ -1,8 +1,11 @@
 using Pkg
-Pkg.activate(@__DIR__)
+Pkg.activate(temp=true)
+Pkg.add(url="https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings")
 Pkg.resolve()
 Pkg.instantiate()
+Pkg.add("Plots")
 import ICAforECGrecordings
+using ICAforECGrecordings: whiten, plot_dataset, read_dataset_from_dat, solve, JadeSeperator, ShibbsSeperator
 using ICAforECGrecordings: whiten, plot_dataset, read_dataset_from_dat, solve, JadeSeperator, ShibbsSeperator
 using Plots: savefig
 
@@ -20,6 +23,6 @@ end
 
 
 # save plots 
-# savefig(plot_dataset(whitened_data), "plots/whiten.png")
 savefig(plot_dataset(solve(ShibbsSeperator(), data)), "plots/shibbs.png")
 savefig(plot_dataset(solve(JadeSeperator(), data)), "plots/jade.png")
+# savefig(plot_dataset(solve(PicardoSeperator(), data)), "plots/picardo.png")
