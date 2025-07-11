@@ -49,11 +49,8 @@ Approximate Diagonalization of Eigen-matrices) algorithm.
   The whitening matrix of size `(n_signals, n_signals)` used to preprocess the data.
 
 # Returns
-- `result::Matrix{Float64}`  
-  An `Nx(m+1)` matrix whose first column is the original time vector, and whose next
-  `m` columns are the estimated source signals, ordered as they emerge from the
-  JADE separation process.
-
+- A matrix of size `(n_samples, n_signals + 1)` where the first column is time and
+  the remaining columns are the estimated source signals after applying JADE.
 """
 function jade(data_w::AbstractMatrix, W::AbstractMatrix) 
     
@@ -62,7 +59,6 @@ function jade(data_w::AbstractMatrix, W::AbstractMatrix)
     X = Xs'
     n,T = size(X)
 
-    nbcm = div(n * (n + 1), 2)
     CM = cumulant_matrices(Matrix(X), n)
     V, _ = joint_diagonalization(CM, T, 2)
     
