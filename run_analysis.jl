@@ -21,6 +21,7 @@ end
 
 
 # save plots 
+savefig(plot_dataset(data), "plots/original.png")
 savefig(plot_dataset(solve(ShibbsSeperator(), data)), "plots/shibbs.png")
 savefig(plot_dataset(solve(JadeSeperator(), data)), "plots/jade.png")
 # savefig(plot_dataset(solve(PicardoSeperator(), data)), "plots/picardo.png")
