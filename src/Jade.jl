@@ -23,9 +23,9 @@ function jade(data_w::AbstractMatrix, W::AbstractMatrix)
     _,T = size(X)
 
     CM = fourth_order_cumulant_matrices(Matrix(X))
-    V = joint_diagonalization(CM, T, 2)
+    V = joint_diagonalization_new(CM, T, 2)
     
-    B = separate_sources(V, W)
+    B = extract_sources(V, W)
     #B = V' * W
     S = B * X
     iS = S'

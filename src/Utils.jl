@@ -36,6 +36,27 @@ function extract_sources(V::AbstractMatrix, W::AbstractMatrix)
 end
 
 """
+    joint_diagonalization_new(CM_in::AbstractMatrix, T::Int; max_sweeps::Int=10)
+
+Compute an approximate joint diagonalization of a set of `K` symmetric `mxm` matrices
+that are concatenated horizontally in `CM_in`, using a Jacobi-style algorithm.
+
+# Arguments
+- `CM_in::AbstractMatrix{<:Real}`  
+  Input matrix of size `m x (m*K)`.  Each contiguous block of `m` columns  
+  corresponds to one symmetric matrix to be jointly diagonalized.
+- `T::Int`  
+  A scaling parameter (often the number of samples) used to set the rotation threshold.
+- `max_sweeps::Int=10`  
+  Maximum number of full sweeps over all index pairs before terminating.
+
+# Returns
+- `V::Matrix{Float64}`  
+  An `mxm` orthogonal matrix whose columns jointly diagonalize the blocks.
+- `CM::Matrix{Float64}`  
+  The transformed version of `CM_in`, such that each `mxm` block is as close to  
+  diagonal as possible under the rotation `V`.
+
 """
 function joint_diagonalization_new(CM_in::AbstractMatrix, T::Int, max_sweeps::Int=10)
     CM = deepcopy(CM_in)
