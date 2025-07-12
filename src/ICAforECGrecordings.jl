@@ -1,6 +1,6 @@
 module ICAforECGrecordings
 
-using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv
+using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv, adjoint
 using DelimitedFiles: readdlm
 using Statistics: norm, mean
 using Plots: plot, plot!, xlims!, ylims!, title!
@@ -35,7 +35,7 @@ solve(seperator::JadeSeperator, data::AbstractMatrix) =
 begin 
     data_w, W_white = whiten(data)
     signals = jade(data_w, W_white)
-    return signals = signals[:, 1:3] 
+    return signals
 end 
 
 
