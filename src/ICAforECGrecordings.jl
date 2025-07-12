@@ -3,7 +3,7 @@ module ICAforECGrecordings
 using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv
 using DelimitedFiles: readdlm
 using Statistics: norm, mean
-using Plots: plot, plot!, xlims!, ylims!
+using Plots: plot, plot!, xlims!, ylims!, title!
 # Write your package code here.
 include("Preprocessing.jl")
 include("Visualization.jl")

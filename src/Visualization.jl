@@ -11,15 +11,25 @@ function plot_dataset(data::AbstractMatrix{Float64})
     end
     time = data[:, 1]
     signals = data[:, 2:end]
-    n_signals = size(signals)
+    n_signals = size(signals, 2)
 
-    plt = plot(size=(1600, 400), legend=:topright, title="ECG Signals Over Time",
-               xlabel="Time", ylabel="Voltage", grid=true, background_color=:white)
-
-    for i in 1:n_signals
-        plot!(plt, time, signals[:, i], label="Signal $i", lw=3)
+    if n_signals > 2
+        plt = plot(size=(1600, 400* n_signals), layout = (n_signals, 1), legend=:topright, 
+                xlabel="Time", grid=true, ylabel="Signal Value", 
+                background_color=:white, link=:x,)
+    else
+        plt = plot(size=(1600, 400), legend=:topright, 
+                xlabel="Time", grid=true, background_color=:white)
     end
 
+    for i in 1:n_signals
+        if n_signals > 2
+            plot!(plt[i], time, signals[:, i], label="Signal $i", lw=2)
+        else
+            plot!(plt, time, signals[:, i], label="Signal $i", lw=3)
+        end
+    end
 
     return plt
 end
+
