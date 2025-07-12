@@ -21,7 +21,7 @@ function whiten(data::AbstractMatrix)
     X_mean = mean(X, dims=1)
     X_centered = X .- X_mean
 
-    U, S, Vt = svd(X_centered; full=true)
+    U, S, Vt = svd(X_centered, full=true)
 
     W_white = Vt' * Diagonal(1 ./ S)
 

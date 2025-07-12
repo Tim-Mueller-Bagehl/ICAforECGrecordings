@@ -58,7 +58,7 @@ that are concatenated horizontally in `CM_in`, using a Jacobi-style algorithm.
   diagonal as possible under the rotation `V`.
 
 """
-function joint_diagonalization_new(CM_in::AbstractMatrix, T::Int, max_sweeps::Int=10)
+function joint_diagonalization_new(CM_in::AbstractMatrix, T::Int, max_sweeps::Int=4000)
     CM = deepcopy(CM_in)
     m = size(CM, 1)
     K = size(CM, 2) ÷ m
@@ -67,7 +67,7 @@ function joint_diagonalization_new(CM_in::AbstractMatrix, T::Int, max_sweeps::In
     V = eigen(Symmetric(CM[:, 1:m])).vectors # eigendecomposition Q1
     @views for k in 0:K-1 # rotate all blocks by V
         u = k*m + 1  : k*m + m
-        @views CM[:, u] .*= V
+        @views CM[:, u] .= CM[:, u] * V
     end
     CM .= V' * CM
 
@@ -118,7 +118,9 @@ function joint_diagonalization_new(CM_in::AbstractMatrix, T::Int, max_sweeps::In
                 end
             end
         end
-        isnothing(any_change) && break
+        if !any_change
+            break
+        end
     end
     return V
 end
