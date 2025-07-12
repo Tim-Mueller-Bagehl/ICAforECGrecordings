@@ -1,6 +1,5 @@
 using Pkg
-Pkg.activate(".")
-Pkg.add("ICAforECGrecordings")
+Pkg.activate(@__DIR__)
 Pkg.resolve()
 Pkg.instantiate()
 Pkg.add("Plots")
