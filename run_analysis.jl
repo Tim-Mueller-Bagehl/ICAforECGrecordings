@@ -1,6 +1,4 @@
 using Pkg
-# Pkg.activate(temp=true)
-# Pkg.add(url="https://github.com/Tim-Mueller-Bagehl/ICAforECGrecordings")
 Pkg.activate(@__DIR__)
 Pkg.resolve()
 Pkg.instantiate()
