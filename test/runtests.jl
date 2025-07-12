@@ -1,6 +1,5 @@
 using ICAforECGrecordings
-using Test
-
+using Test: @testset, @test, @test_throws
 @testset "ICAforECGrecordings.jl" begin
 
     #include("test_jade.jl")

@@ -3,14 +3,11 @@ module ICAforECGrecordings
 using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv, adjoint
 using DelimitedFiles: readdlm
 using Statistics: norm, mean
-using Plots: plot, plot!, xlabel!
-
-
+using Plots: plot, plot!, xlims!, ylims!, title!
 # Write your package code here.
 include("Preprocessing.jl")
 include("Visualization.jl")
 include("Parser.jl")
-include("Utils.jl")
 include("Utils.jl")
 
 # Algos
@@ -90,8 +87,6 @@ function load_example_data()
     return data
 end
 
-export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
-       JadeSeperator, ShibbsSeperator, AbstractSeperator
 export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
        JadeSeperator, ShibbsSeperator, AbstractSeperator
 

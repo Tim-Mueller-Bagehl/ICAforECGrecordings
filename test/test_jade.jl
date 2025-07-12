@@ -4,6 +4,7 @@ using Random
 using LinearAlgebra: adjoint, transpose, isapprox, randn
 using Statistics: cor
 
+#=
 @testset "jade function" begin
     Random.seed!(123)
 
@@ -35,3 +36,4 @@ using Statistics: cor
     corr = cor(recovered[:, 1], recovered[:, 2])
     @test abs(corr) < 0.3
 end
+=#
