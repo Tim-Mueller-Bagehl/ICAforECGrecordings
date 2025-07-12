@@ -3,6 +3,10 @@ using Test
 
 @testset "ICAforECGrecordings.jl" begin
 
+    include("test_jade.jl")
+
+    include("test_utils.jl")
+
     include("test_parser.jl")
 
     include("test_visualization.jl")

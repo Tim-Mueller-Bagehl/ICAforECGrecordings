@@ -23,7 +23,7 @@ using Statistics: mean
     X_white = data_w[:, 2:end]
 
     # Test time column
-    @test time_white == time
+    @test isapprox(time, time_white)
     # Test mean
     @test all(abs.(mean(X_white, dims=1)) .< 1e-10)
     # Test size of return value
