@@ -92,7 +92,5 @@ end
 
 export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
        JadeSeperator, ShibbsSeperator, AbstractSeperator
-export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
-       JadeSeperator, ShibbsSeperator, AbstractSeperator
 
 end
