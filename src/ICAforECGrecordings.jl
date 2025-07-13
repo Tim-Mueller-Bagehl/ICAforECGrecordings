@@ -1,9 +1,10 @@
 module ICAforECGrecordings
-
-using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv
+using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv, adjoint ,diag, diagm, qr, rank
 using DelimitedFiles: readdlm
 using Statistics: norm, mean
 using Plots: plot, plot!, xlims!, ylims!, title!
+using Random: randn
+
 # Write your package code here.
 include("Preprocessing.jl")
 include("Visualization.jl")
@@ -13,13 +14,16 @@ include("Utils.jl")
 # Algos
 include("Shibbs.jl")
 include("Jade.jl")
+include("Picard.jl")
 
 
 abstract type AbstractSeperator end
 
 struct JadeSeperator <: AbstractSeperator end
 struct ShibbsSeperator <: AbstractSeperator end
-struct PicardoSeperator <: AbstractSeperator end
+struct PicardoSeperator <: AbstractSeperator 
+    Parameters :: Dict{String,Any}    
+end
 
 
 """
@@ -35,7 +39,7 @@ solve(seperator::JadeSeperator, data::AbstractMatrix) =
 begin 
     data_w, W_white = whiten(data)
     signals = jade(data_w, W_white)
-    return signals = signals[:, 1:3] 
+    return signals
 end 
 
 
@@ -66,10 +70,12 @@ end
 
 solve(seperator::PicardoSeperator, data::AbstractMatrix) = 
 begin 
-    data = white(data)
-    signal1 = picardo(data)
-    signal2 = hcat(data[:,1], data[:,2:end]-signal1[:,2:end])
-    return signal1, signal2
+    if isempty(seperator.Parameters)
+        Y,W = picard(data')
+    else
+        Y,W = picard(data',seperator.Parameters)
+    end
+    return Y',W
 end 
 
 
@@ -86,6 +92,7 @@ function load_example_data()
     data = read_dataset_from_dat(datpath)
     return data
 end
+
 
 export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
        JadeSeperator, ShibbsSeperator, AbstractSeperator
