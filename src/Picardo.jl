@@ -1,6 +1,4 @@
-using LinearAlgebra
-using Infinity
-using Statistics
+
 """
     picardo(X::AbstractMatrix, m::Int, maxiter::Int, tol::Z, lambda_min <: A, ls_tries:: Int, verbose::Bool) where{Z,A <:Real}
 Runs the Picard algorithm.
@@ -14,26 +12,27 @@ Runs the Picard algorithm.
 - `verbose::Bool` : If true, prints the informations about the algorithm.
 
 """
-function picardo(X::AbstractMatrix, m::Int, maxiter::Int, tol::Z, lambda_min <: A, ls_tries:: Int, verbose::Bool) where{Z,A <:Real}
+function picardo(X::AbstractMatrix, m::Int, maxiter::Int, tol::Z, lambda_min :: A, ls_tries:: Int, verbose::Bool) where{Z,A <:Real}
 
     N, T = size(X) 
 
     W = I(N)
     Y = X
 
-    s_list = zeros(0)
-    y_list = zeros(0)
+    s_list = Vector{Matrix}()
+    y_list = Vector{Matrix}()
     r_list = zeros(0)
-    current_loss = ∞
+    current_loss  = Inf
     sign_change = false
-
-    for i  = 1:maxiter
+    old_signs = nothing
+    direction = nothing
+    G_old = nothing
+    for n  = 1:maxiter
         psiY = score(Y)
         psidY_mean = score_der(psiY)
 
         g = gradient(Y, psiY)
-
-        K = psidY_mean - diagm(g)
+        K = psidY_mean .- diag(g)
         signs = sign.(K)
         if n > 1
             sign_change = signs ≠ old_signs
@@ -42,18 +41,18 @@ function picardo(X::AbstractMatrix, m::Int, maxiter::Int, tol::Z, lambda_min <: 
 
         psidY_mean = psidY_mean .* signs
 
-        G .= (g .- transpose(g)) ./ 2.0
+        G = (g .- transpose(g)) ./ 2.0
 
-        gradient_norm = max(max(abs.(G)))
+        gradient_norm = maximum(maximum(abs.(G),dims = 2))
         if gradient_norm < tol
             break
         end
 
         if n > 1
-            append!(s_list, direction)
-            y = G .- G_old
-            append!(y_list, y)
-            append!(r_list, 1. / sum(sum(direction .* y)))
+            push!(s_list, direction)
+            y = G - G_old
+            push!(y_list, y)
+            push!(r_list, 1. / sum(direction .* y))
             if length(s_list) > m
                 deleteat!(s_list,1)
                 deleteat!(y_list,1)
@@ -62,30 +61,32 @@ function picardo(X::AbstractMatrix, m::Int, maxiter::Int, tol::Z, lambda_min <: 
         end
         G_old = G
         if sign_change
-            s_list = zeros(0)
-            y_list = zeros(0)
+            s_list = Vector{Matrix}()
+            y_list = Vector{Matrix}()
             r_list = zeros(0)
-            current_loss = ∞
+            current_loss = Inf
         end
         h = proj_hessian_approx(Y, psidY_mean, g)
         h = regularize_hessian(h, lambda_min)
+        direction = l_bfgs_direction(G,h,s_list,y_list,r_list)
         converged, new_Y, new_loss, alpha = line_search(Y, signs, direction, current_loss, ls_tries)
 
         if !converged
             direction = -G
-            s_list = zeros(0)
-            y_list = zeros(0)
+            s_list = Vector{Matrix}()
+            y_list = Vector{Matrix}()
             r_list = zeros(0)
             tmp, new_Y, new_loss, alpha = line_search(Y, signs, direction, current_loss, ls_tries)
         end
         direction = alpha * direction
         Y = new_Y
-        W = expm(direction) .* W
+        W = exp(direction) .* W
         current_loss = new_loss
         if verbose
-            @info iteration n, gradient norm = gradient_norm
+            @info "iteration $n, gradient norm = $gradient_norm"
         end
     end
+    return Y,W
 
 end
 
@@ -94,7 +95,7 @@ function score(Y :: AbstractMatrix)
 end
 
 function score_der(psiY :: AbstractMatrix)
-    return -mean(psiY.^2,2) + 1
+    return -mean(psiY.^2,dims=2) .+ 1
 end
 """
     gradient(Y :: AbstractMatrix,psiY :: AbstractMatrix)
@@ -102,7 +103,7 @@ Compute the gradient of the current signals
 """
 function gradient(Y :: AbstractMatrix,psiY :: AbstractMatrix)
     T = size(Y,2)
-    return (psiY * transpose(T))/T
+    return (psiY * transpose(Y)) / T
 end
 """
     proj_hessian_approx(Y :: AbstractMatrix,psidY_mean :: AbstractMatrix,G :: AbstractMatrix)
@@ -143,22 +144,22 @@ Returns the loss function, evaluated for the current signals
 function loss(Y :: AbstractMatrix,signs :: AbstractMatrix)
     output = 0
     N,T = size(Y)
-    for ii in eachrow(Y)
+    for ii = 1:N
         y = Y[ii,:]
         s = signs[ii,:]
-        output = output + s *(sum(abs(y) + log1p(exp(-2 * abs(y))))) / T
+        output = output .+ s *(sum(abs.(y) .+ log1p.(exp.(-2 * abs.(y))))) / T
     end
-    return output
+    return output[1]
 end
 
 function l_bfgs_direction(G,h,s_list :: AbstractVector,y_list :: AbstractVector,r_list :: AbstractVector)
     q = G
     a_list=Any[]
     for ii in eachindex(s_list)
-        s = s_list[end - ii +1]
-        y = y_list[end - ii +1]
-        r = r_list[end - ii +1]
-        alpha = r * sum(sum(s .* q))
+        s = s_list[(end - ii +1)]
+        y = y_list[(end - ii +1)]
+        r = r_list[(end - ii +1)]
+        alpha = r * sum(s .* q)
         push!(a_list,alpha)
         q = q - alpha * y
     end
@@ -167,8 +168,8 @@ function l_bfgs_direction(G,h,s_list :: AbstractVector,y_list :: AbstractVector,
         s = s_list[ii]
         y = y_list[ii]
         r = r_list[ii]
-        alpha = a_list[end - ii + 1]
-        beta = r * sum(sum(y.*z))
+        alpha = a_list[length(a_list) - ii + 1]
+        beta = r * sum(y.*z)
         z = z + (alpha - beta)  * s
     end    
     return -z
@@ -180,13 +181,14 @@ end
 Performs a backtracking line search, starting from Y and W, in the direction direction
 """
 function line_search(Y :: AbstractMatrix,signs :: AbstractMatrix,direction :: AbstractMatrix,current_loss :: T,ls_tries :: Int) where {T<:Real}
-
+    Y_new = nothing
+    new_loss = nothing
     alpha = 1
-    if current_loss == ∞
+    if current_loss == Inf
         current_loss = loss(Y,signs)
     end
     for ii = 1:ls_tries
-        Y_new = expm(alpha * direction) * Y
+        Y_new = exp(alpha * direction) * Y
         new_loss = loss(Y_new,signs)
         if new_loss < current_loss
             converged = true

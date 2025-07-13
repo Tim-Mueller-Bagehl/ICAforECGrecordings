@@ -1,9 +1,10 @@
 module ICAforECGrecordings
-
-using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv, adjoint
+using LinearAlgebra: transpose, sqrt, I, norm, svd, Diagonal, pinv, eigen, Symmetric, dot, inv, adjoint ,diag, diagm, qr, rank
 using DelimitedFiles: readdlm
 using Statistics: norm, mean
 using Plots: plot, plot!, xlims!, ylims!, title!
+using Random: randn
+
 # Write your package code here.
 include("Preprocessing.jl")
 include("Visualization.jl")
@@ -13,6 +14,7 @@ include("Utils.jl")
 # Algos
 include("Shibbs.jl")
 include("Jade.jl")
+include("Picard.jl")
 
 
 abstract type AbstractSeperator end
@@ -86,6 +88,7 @@ function load_example_data()
     data = read_dataset_from_dat(datpath)
     return data
 end
+
 
 export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
        JadeSeperator, ShibbsSeperator, AbstractSeperator
