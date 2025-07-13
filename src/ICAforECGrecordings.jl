@@ -22,7 +22,7 @@ abstract type AbstractSeperator end
 struct JadeSeperator <: AbstractSeperator end
 struct ShibbsSeperator <: AbstractSeperator end
 struct PicardoSeperator <: AbstractSeperator 
-    Parameters :: Dict()    
+    Parameters :: Dict{String,Any}    
 end
 
 
