@@ -21,7 +21,7 @@ abstract type AbstractSeperator end
 
 struct JadeSeperator <: AbstractSeperator end
 struct ShibbsSeperator <: AbstractSeperator end
-struct PicardoSeperator <: AbstractSeperator 
+struct PicardSeperator <: AbstractSeperator 
     Parameters :: Dict{String,Any}    
 end
 
@@ -68,14 +68,17 @@ begin
     return S
 end 
 
-solve(seperator::PicardoSeperator, data::AbstractMatrix) = 
+solve(seperator::PicardSeperator, data::AbstractMatrix) = 
 begin 
+    time = data[:,1]
+    data = data[:,2:end]
     if isempty(seperator.Parameters)
         Y,W = picard(data')
     else
         Y,W = picard(data',seperator.Parameters)
     end
-    return Y',W
+    result = hcat(time,Y')
+    return result,W
 end 
 
 
