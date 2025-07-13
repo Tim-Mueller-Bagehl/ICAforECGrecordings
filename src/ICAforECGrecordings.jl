@@ -25,6 +25,11 @@ struct PicardoSeperator <: AbstractSeperator
     Parameters :: Dict{String,Any}    
 end
 
+function PicardoSeperator()
+    default_config = Dict{String, Any}()
+    return PicardoSeperator(default_config)
+end
+
 
 """
     solve(seperator::AbstractSeperator, data::AbstractMatrix) -> AbstractMatrix
@@ -68,6 +73,17 @@ begin
     return S
 end 
 
+
+"""
+    solve(seperator::PicardoSeperator, data::AbstractMatrix) -> AbstractMatrix
+
+Performs Independent Component Analysis (ICA) using the Picardo algorithm on the provided data.
+# Arguments
+- `seperator`: An instance of `PicardoSeperator`, which can include parameters for the Picardo algorithm.
+- `data`: A matrix of size `(n_{samples}, n_{signals} + 1)` where the first column is time in seconds and `data[:, 2:end]` contains the signal measurements.
+# Returns
+- 
+""" 
 solve(seperator::PicardoSeperator, data::AbstractMatrix) = 
 begin 
     if isempty(seperator.Parameters)
@@ -75,7 +91,7 @@ begin
     else
         Y,W = picard(data',seperator.Parameters)
     end
-    return Y',W
+    return Y'
 end 
 
 
