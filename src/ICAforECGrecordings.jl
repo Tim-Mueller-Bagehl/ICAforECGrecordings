@@ -94,7 +94,7 @@ begin
         Y,W = picard(data',seperator.Parameters)
     end
     result = hcat(time,Y')
-    return result,W
+    return result[:, 1:3] 
 
 end 
 
@@ -114,7 +114,8 @@ function load_example_data()
 end
 
 
-export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardSeperator, 
-       JadeSeperator, ShibbsSeperator, AbstractSeperator
+export whiten, plot_dataset, read_dataset_from_dat, load_example_data,  # helper function
+        shibbs, jade, picard,                                           # direct algorithms
+        solve, PicardSeperator, JadeSeperator, ShibbsSeperator, AbstractSeperator # wrapper
 
 end
