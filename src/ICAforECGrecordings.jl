@@ -21,13 +21,13 @@ abstract type AbstractSeperator end
 
 struct JadeSeperator <: AbstractSeperator end
 struct ShibbsSeperator <: AbstractSeperator end
-struct PicardoSeperator <: AbstractSeperator 
+struct PicardSeperator <: AbstractSeperator 
     Parameters :: Dict{String,Any}    
 end
 
-function PicardoSeperator()
+function PicardSeperator()
     default_config = Dict{String, Any}()
-    return PicardoSeperator(default_config)
+    return PicardSeperator(default_config)
 end
 
 
@@ -82,9 +82,10 @@ Performs Independent Component Analysis (ICA) using the Picardo algorithm on the
 - `seperator`: An instance of `PicardoSeperator`, which can include parameters for the Picardo algorithm.
 - `data`: A matrix of size `(n_{samples}, n_{signals} + 1)` where the first column is time in seconds and `data[:, 2:end]` contains the signal measurements.
 # Returns
+- A matrix of size `(n_{samples}, n_{signals} + 1)` where the first column is time and `[:, 2:end]` are the separated signals.
 - 
 """ 
-solve(seperator::PicardoSeperator, data::AbstractMatrix) = 
+solve(seperator::PicardSeperator, data::AbstractMatrix) = 
 begin 
     if isempty(seperator.Parameters)
         Y,W = picard(data')
@@ -110,7 +111,7 @@ function load_example_data()
 end
 
 
-export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardoSeperator, 
+export whiten, plot_dataset, read_dataset_from_dat, shibbs, jade, load_example_data, solve, PicardSeperator, 
        JadeSeperator, ShibbsSeperator, AbstractSeperator
 
 end
