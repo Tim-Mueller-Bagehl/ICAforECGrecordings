@@ -73,9 +73,8 @@ begin
     return S
 end 
 
-
 """
-    solve(seperator::PicardoSeperator, data::AbstractMatrix) -> AbstractMatrix
+    solve(seperator::PicardSeperator, data::AbstractMatrix) -> AbstractMatrix
 
 Performs Independent Component Analysis (ICA) using the Picardo algorithm on the provided data.
 # Arguments
@@ -87,12 +86,16 @@ Performs Independent Component Analysis (ICA) using the Picardo algorithm on the
 """ 
 solve(seperator::PicardSeperator, data::AbstractMatrix) = 
 begin 
+    time = data[:,1]
+    data = data[:,2:end]
     if isempty(seperator.Parameters)
         Y,W = picard(data')
     else
         Y,W = picard(data',seperator.Parameters)
     end
-    return Y'
+    result = hcat(time,Y')
+    return result,W
+
 end 
 
 
