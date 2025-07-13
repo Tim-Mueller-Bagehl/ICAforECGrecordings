@@ -4,5 +4,4 @@ Pkg.resolve()
 Pkg.instantiate()
 
 using ICAforECGrecordings
-
 Pkg.test("ICAforECGrecordings")
